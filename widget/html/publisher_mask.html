@@ -508,6 +508,13 @@
 		api.setScreenOrientation({
 		    orientation: screenOrientation
 		});
+
+		publisher.setVideoPreset({
+		    width: api.frameWidth, 
+		    height: api.frameHeight, 
+		    bps: 0, 
+		    fps: 0
+		});
 	}
 	
 	//设置闪光灯
