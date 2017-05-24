@@ -17,7 +17,7 @@
   <permission name="internet"/>  
   <access origin="*"/>  
   <feature name="gotyeLiveCore"> 
-    <param name="appKey" value="7699a0f4df6341349d30f01a3bc66a67"/>  
-    <param name="accessSecret" value="96b62f561b33470b95f961933a37b747"/> 
+    <param name="appKey" value="396cdccde9ea44f2a9da53ecc8b1c212"/>  
+    <param name="accessSecret" value="5404c692741047ac99420b23dbc0e047"/> 
   </feature> 
 </widget>
