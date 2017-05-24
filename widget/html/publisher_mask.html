@@ -103,15 +103,19 @@
 			
 		//在推流之前，需要先打开设备的摄像头
 		insertChartContent('sys','系统','正在打开设备摄像头...');
+		// publisher.startPreview({ 
+		// 	preview: "publisher",
+		// 	position:'front',
+		// 	rect:{
+		// 	    x:0,             
+		// 	    y:0,            
+		// 	    w:api.frameWidth,           
+		// 	    h:api.frameHeight          
+		// 	} 
+		// }, function(ret, err) {
 		publisher.startPreview({ 
 			preview: "publisher",
-			position:'front',
-			rect:{
-			    x:0,             
-			    y:0,            
-			    w:api.frameWidth,           
-			    h:api.frameHeight          
-			} 
+			position:'front'
 		}, function(ret, err) {
 		    if (ret) {
 		    	//登录，此时并未正式开启直播，如要开启，还需触发startPublisher
