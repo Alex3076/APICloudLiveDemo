@@ -21,7 +21,7 @@
 	<div class="quality" id="quality" tapmode onclick="onQualityClick();event.cancelBubble=true;">流畅<i class="aui-iconfont aui-icon-down aui-margin-l-10"></i></div>
 	<div class="quality-option" id="qualityOption">
 		<div class="quality-option-item" tapmode onclick="onQualityItemClick(this);event.cancelBubble=true;">流畅</div>
-		<div class="quality-option-item" tapmode onclick="onQualityItemClick(this);event.cancelBubble=true;">标清</div>
+		<div class="quality-option-item" tapmode onclick="setScreen();event.cancelBubble=true;">标清</div>
 		<div class="quality-option-item" style="border-bottom: none;" tapmode onclick="onQualityItemClick(this);event.cancelBubble=true;">高清</div>
 	</div>
 	
@@ -170,6 +170,19 @@
 		});
 	};
 	
+	//设置横屏竖屏
+	function setScreen(){
+		if(screenOrientation=='portrait_up'){
+			screenOrientation='landscape_left';
+		}else{
+			screenOrientation='portrait_up';
+		}
+		
+		api.setScreenOrientation({
+		    orientation: screenOrientation
+		});
+	}
+
 	//往聊天区插入消息，或为系统消息或为用户发出的消息，根据type区分
 	function insertChartContent(type,sender,content){
 		if(type=='sys')
