@@ -509,12 +509,22 @@
 		    orientation: screenOrientation
 		});
 
-		publisher.setVideoPreset({
-		    width: api.frameWidth, 
-		    height: api.frameHeight, 
-		    bps: 0, 
-		    fps: 0
+		publisher.startPreview({ 
+			preview: "publisher",
+			position:'front'
+		}, function(ret, err) {
+		    if (ret) {
+		    	// insertChartContent('syserro','系统','打开设备摄像头成功');
+		    }else{
+		        insertChartContent('syserro','系统','打开设备摄像头失败');
+		    }
 		});
+		// publisher.setVideoPreset({
+		//     width: api.frameWidth, 
+		//     height: api.frameHeight, 
+		//     bps: 0, 
+		//     fps: 0
+		// });
 	}
 	
 	//设置闪光灯
