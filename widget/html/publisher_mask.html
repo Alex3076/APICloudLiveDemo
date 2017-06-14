@@ -72,6 +72,7 @@
 
 	apiready = function(){
 		//设置屏幕为全屏
+		setScreen()
 		api.setFullScreen({
 		    fullScreen: true
 		});
@@ -509,16 +510,16 @@
 		    orientation: screenOrientation
 		});
 
-		publisher.startPreview({ 
-			preview: "publisher",
-			position:'front'
-		}, function(ret, err) {
-		    if (ret) {
-		    	// insertChartContent('syserro','系统','打开设备摄像头成功');
-		    }else{
-		        insertChartContent('syserro','系统','打开设备摄像头失败');
-		    }
-		});
+		// publisher.startPreview({ 
+		// 	preview: "publisher",
+		// 	position:'front'
+		// }, function(ret, err) {
+		//     if (ret) {
+		//     	// insertChartContent('syserro','系统','打开设备摄像头成功');
+		//     }else{
+		//         insertChartContent('syserro','系统','打开设备摄像头失败');
+		//     }
+		// });
 		// publisher.setVideoPreset({
 		//     width: api.frameWidth, 
 		//     height: api.frameHeight, 
