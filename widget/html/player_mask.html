@@ -49,6 +49,7 @@
 	
 	apiready = function(){
 		//监听网络情况
+		setScreen()
 		api.addEventListener({
 		    name:'offline'
 		}, function(ret, err){        
@@ -83,7 +84,8 @@
 			}
 		});
 		//aspectFill表示保持比例撑满，视频会按照比例放大直到撑满屏幕为止
-		player.setDisplayMode({mode:'aspectFill'});
+		// player.setDisplayMode({mode:'aspectFill'});
+		player.setDisplayMode({mode:'aspectFit'});
 		
 		//根据实际业务需求加入监听事件
 		player.addEventListener({
