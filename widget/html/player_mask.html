@@ -75,14 +75,17 @@
 		player = api.require('gotyeLivePlayer');
 		player.init({session:session});
 		player.play({
-			playView: "player",
-			rect:{
-			    x:0,             
-			    y:0,            
-			    w:api.frameWidth,           
-			    h:api.frameHeight          
-			}
+			playView: "player"
 		});
+		// player.play({
+		// 	playView: "player",
+		// 	rect:{
+		// 	    x:0,             
+		// 	    y:0,            
+		// 	    w:api.frameWidth,           
+		// 	    h:api.frameHeight          
+		// 	}
+		// });
 		//aspectFill表示保持比例撑满，视频会按照比例放大直到撑满屏幕为止
 		// player.setDisplayMode({mode:'aspectFill'});
 		player.setDisplayMode({mode:'aspectFit'});
