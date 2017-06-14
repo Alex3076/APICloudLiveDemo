@@ -102,6 +102,12 @@
         publisher = api.require('gotyeLivePublisher');
 		publisher.init({session:session});
 			
+		publisher.setVideoPreset({
+		    width: 640, 
+		    height: 360, 
+		    bps: 480, 
+		    fps: 24
+		});
 		//在推流之前，需要先打开设备的摄像头
 		insertChartContent('sys','系统','正在打开设备摄像头...');
 		// publisher.startPreview({ 
