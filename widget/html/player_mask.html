@@ -17,7 +17,8 @@
 <body>
 	<div class="mask" tapmode onclick="resetmask();"></div>
 	<div class="viewer-count"><img src="../image/viewer.png" /><font id="viewerCount"></font></div>
-	
+	<div class="viewer-list" id="viewerList">		
+	</div>
 	<div class="quality" id="quality" tapmode onclick="setScreen();event.cancelBubble=true;">切换屏幕</div>
 
 <!-- 	<div class="quality" id="quality" tapmode onclick="onQualityClick();event.cancelBubble=true;">流畅<i class="aui-iconfont aui-icon-down aui-margin-l-10"></i></div>
@@ -130,6 +131,10 @@
 		    	//获取登录后返回的account作为连麦所需要的localId
 		    	localId=ret.account;
 		    	insertChartContent('sys','系统','连接聊天服务器成功');
+
+		    	initUserList();		    	
+				//定时刷新用户列表，目前设置是1分钟刷新一次
+		      	setInterval("initUserList()",1000*6);
 		    	//获取聊天室当前人数
 		        chat.getRoomMemberCount(function(ret, err) {
 				    if (ret) {
@@ -189,6 +194,27 @@
 		
 		api.setScreenOrientation({
 		    orientation: screenOrientation
+		});
+	}
+
+	//获取观众总数及观众列表信息
+	function initUserList(){
+		 chat.getRoomMemberCount(function(ret, err) {
+		    if (ret) {
+		        $('#viewerCount').text(ret.count);
+		    }
+		 });
+		 chat.queryUserList({index:1,total:20},function(ret, err) {
+		    if( ret ){
+		         var ht_user='<div class="viewer-list-item aui-ellipsis-1 aui-padded-l-15"><img class="crown" src="../image/publisher/crown.png" />主播</div>';		    	
+		    	 for(var i=0;i<ret.entities.length;i++){
+		    	 	ht_user+=
+		    	 		'<div class="viewer-list-item aui-ellipsis-1" data-account="'+ret.entities[i].account+'" tapmode onclick="onUserClick(this);event.cancelBubble=true;">'+ret.entities[i].nickname+'</div>';    	 	
+		    	 }
+		    	 $('#viewerList').html(ht_user);
+		    }else{
+		         alert( JSON.stringify( err ) );
+		    }
 		});
 	}
 
