@@ -164,7 +164,87 @@
 				        });
 						$('#p2pCancel').hide();
 	    			}
-		    	}else
+		    	}else if(ret.extra=='inviteaccept'){
+		    		insertChartContent('sys',ret.sendName,'对方已接受连麦');
+		    		remoteId=ret.sendId;
+		    		if(api.systemType=='ios'){    
+				    	api.openFrame({
+						    name: 'p2p',
+						    url: '../html/p2p.html',
+						    rect:{
+						        x: api.frameWidth /2 ,
+				                y: api.frameHeight /2 ,
+				                w: 120,
+				                h: 160
+						    },
+						    bounces: false,
+						    bgColor: 'rgba(0,0,0,0)',
+						    vScrollBarEnabled:false,
+						    hScrollBarEnabled:false
+						});
+						
+						p2p = api.require('gotyeLiveP2P');
+						p2p.joinRoom({
+							roomId:api.pageParam.roomId,
+							localId:localId,
+							remoteId:ret.sendId,
+							localView:{
+								fixedOn:'player',
+								fixed:true
+							},
+							remoteView:{
+								fixedOn:'p2p',
+								fixed:true
+							}
+						});
+					}else{
+						p2p = api.require('gotyeLiveP2P');
+						p2p.joinRoom({
+							roomId:api.pageParam.roomId,
+							localId:localId,
+							remoteId:ret.sendId,
+							rendererView:{
+								fixedOn:'player',
+								fixed:true,
+								paddingBottom:20,
+								paddingRight:20,
+								ratio:0.4
+							}
+						});	
+					}
+		    							
+					p2p.addEventListener({
+					    name: 'joinedRoom'
+					}, function(ret, err) {
+						insertChartContent('sys','系统','连麦-加入房间成功');
+						$('#p2pCancel').show();
+					});
+					
+					p2p.addEventListener({
+					    name: 'connected'
+					}, function(ret, err) {
+						insertChartContent('sys','系统','连麦-建立连接成功');
+					});
+					
+					p2p.addEventListener({
+					    name: 'disconnected'
+					}, function(ret, err) {
+						insertChartContent('sys','系统','连麦-断开连接');
+						api.closeFrame({
+							name: 'p2p'
+				        });
+					});
+					
+					p2p.addEventListener({
+					    name: 'error'
+					}, function(ret, err) {
+						insertChartContent('sys','系统','连麦-错误'+ret.description);
+						api.closeFrame({
+							name: 'p2p'
+				        });
+					});
+				}
+		    	else
 		    		insertChartContent('user',ret.sendName,ret.text);
 		    }
 		});
@@ -288,7 +368,7 @@
 		    }
 		});
 	}
-	
+
 
 	//往聊天区插入消息，或为系统消息或为用户发出的消息，根据type区分
 	function insertChartContent(type,sender,content){
