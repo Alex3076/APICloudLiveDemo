@@ -219,6 +219,77 @@
 		 $('#viewerList').show()
 	}
 
+	function onUserClick(tag){
+		var dialogBox = api.require('dialogBox');
+		dialogBox.alert({
+		    texts: {
+		        content: $(tag).text(),
+		        leftBtnTitle: '连麦',
+		        rightBtnTitle: '取消'
+		    },
+		    styles: {
+		        bg: 'rgba(0,0,0,0.5)',
+		        corner: 5,
+		        w: 230,
+		        content: {
+		            color: '#FFFFFF',
+		            size: 14
+		        },
+		        left: {
+		            marginB: 15,
+		            marginL: 10,
+		            w: 80,
+		            h: 30,
+		            corner: 5,
+		            bg: '#9F61E8',
+		            color: '#FFFFFF',
+		            size: 12
+		        },
+		        right: {
+		            marginB: 15,
+		            marginL: 50,
+		            w: 80,
+		            h: 30,
+		            corner: 5,
+		            bg: '#DDDDDD',
+		            color: '#999999',
+		            size: 12
+		        }
+		    }
+		}, function(ret) {
+		    if (ret.eventType == 'left') {
+		    	setP2PUser(tag);
+		        dialogBox.close({
+		            dialogName: 'alert'
+		        });
+		    }else if (ret.eventType == 'right') {
+		        dialogBox.close({
+		            dialogName: 'alert'
+		        });
+		    }
+		});
+	}
+	
+	function setP2PUser(tag){
+		var account=$(tag).attr('data-account');
+		chat.sendNotify({notify: account,extra:'invitep2p'}, function(ret, err) {
+		    if (ret) {
+		        api.toast({
+				    msg: '邀请已发出',
+				    duration: 2000,
+				    location: 'bottom'
+				});
+		    }else{
+				api.toast({
+				    msg: '邀请失败！',
+				    duration: 2000,
+				    location: 'bottom'
+				})
+		    }
+		});
+	}
+	
+
 	//往聊天区插入消息，或为系统消息或为用户发出的消息，根据type区分
 	function insertChartContent(type,sender,content){
 		if(type=='sys')
